@@ -40,7 +40,7 @@
         }
 
         html {
-    scroll-behavior: smooth;
+    scroll-behavior: auto !important;
 }
 
 body {
@@ -991,6 +991,126 @@ body {
 .floating-buttons .ig { background: #E4405F; box-shadow: 0 5px 20px rgba(228,64,95,0.4); }
 .floating-buttons .tt { background: #000000; box-shadow: 0 5px 20px rgba(0,0,0,0.4); }
 
+
+/* Floating Action Button Expandable */
+.fab-container {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    z-index: 9999;
+}
+
+/* Desktop = tetap 3 tombol bertumpuk */
+@media (min-width: 769px) {
+    .fab-container {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+    .fab-main { display: none; }
+    .fab-options {
+        opacity: 1 !important;
+        pointer-events: auto !important;
+        transform: none !important;
+        position: static;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+}
+
+/* Mobile = expandable */
+@media (max-width: 768px) {
+    .fab-main {
+        width: 60px; height: 60px;
+        border-radius: 50%;
+        background: #25D366;
+        color: white;
+        display: flex; align-items: center; justify-content: center;
+        font-size: 1.8rem;
+        cursor: pointer;
+        box-shadow: 0 5px 20px rgba(37,211,102,0.4);
+        transition: transform 0.3s ease;
+    }
+    .fab-main:hover { transform: scale(1.1); }
+
+    .fab-options {
+        position: absolute;
+        bottom: 70px;
+        right: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        opacity: 0;
+        pointer-events: none;
+        transform: translateY(20px);
+        transition: all 0.3s ease;
+    }
+    .fab-container.active .fab-options {
+        opacity: 1;
+        pointer-events: auto;
+        transform: translateY(0);
+    }
+}
+
+/* Style tombol WA, IG, TikTok */
+.fab-options a {
+    width: 55px; height: 55px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    color: white; font-size: 1.5rem;
+    text-decoration: none;
+    transition: transform 0.3s ease;
+}
+.fab-options a:hover { transform: scale(1.1); }
+.fab-options .wa { background: #25D366; box-shadow: 0 5px 20px rgba(37,211,102,0.4); }
+.fab-options .ig { background: #E4405F; box-shadow: 0 5px 20px rgba(228,64,95,0.4); }
+.fab-options .tt { background: #000; box-shadow: 0 5px 20px rgba(0,0,0,0.4); }
+
+
+.fab-main.open i {
+    transform: rotate(45deg);
+    transition: transform 0.3s ease;
+}
+
+
+/* === Animasi FAB === */
+.fab-container.active .fab-options a {
+    animation: popIn 0.3s ease forwards;
+}
+@keyframes popIn {
+    from { transform: scale(0); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+.fab-main i {
+    transition: transform 0.3s ease;
+}
+.fab-main.open i {
+    transform: rotate(45deg) scale(1.2);
+}
+
+/* === Optimasi Low Entry Phones === */
+@media (max-width: 768px) {
+    .fab-main, .fab-options a {
+        will-change: transform, opacity;
+    }
+    .header, .contact-form, .logo-container {
+        backdrop-filter: none !important;
+    }
+    .hero::before, .hero::after,
+    .products::before, .products::after,
+    .about::before, .about::after,
+    .contact::before {
+        animation: none !important;
+    }
+}
+
+/* === Optimasi Smooth & GPU === */
+.hero, .about, .contact, .product-card, .about-text, .contact-info, .logo-container {
+    will-change: transform, opacity;
+    transform: translateZ(0);
+}
+
 </style>
 </head>
 <body>
@@ -1024,7 +1144,8 @@ body {
             <div class="particle" style="width:40px;height:40px;left:50%;animation-duration:10s;animation-delay:3s;"></div>
         </div>
         <div class="hero-content">
-            <h1>Trust Your iPhone with PRBM</h1>
+            <h1>Trust Your iPhone 
+                with PRBM</h1>
              <p class="hero-description">
       Dapatkan iPhone bekas premium dengan kondisi mulus 80%–97% seperti baru. Setiap unit bergaransi resmi internasional & Indonesia. Belanja makin aman dan seru dengan layanan COD dari PRBM
     </p>
@@ -1069,11 +1190,11 @@ body {
             <div class="about-content">
                 <div class="about-text">
                    <h2>Mengapa Pilih PRBM.id?</h2>
-                <p>PRBM.id adalah platform terpercaya untuk iPhone second berkualitas tinggi. Kami berkomitmen memberikan produk terbaik dengan layanan profesional dan garansi yang memuaskan.
-                   Setiap iPhone yang kami jual telah melalui quality control ketat dan pengujian menyeluruh untuk memastikan performa optimal seperti produk baru.</p>
-                <p>Kami memilih untuk fokus pada penjualan online tanpa membuka toko fisik. Dengan begitu, PRBM.id bisa lebih efisien, menjaga kualitas produk, dan menawarkan harga yang lebih bersahabat.
-                   Meski tanpa toko offline, kami tetap dekat dengan pelanggan. Tim PRBM siap melayani COD dari Tanjung Pinang hingga Batam, agar kamu bisa bertransaksi dengan aman dan nyaman.
-                   PRBM.id hadir bukan sekadar tempat jual beli, tapi partner terpercaya yang memastikan setiap iPhone second yang kamu pilih benar-benar berkualitas dan bikin tenang setelah dibawa pulang.</p>
+                <p>PRBM.id adalah platform terpercaya untuk iPhone second yang aman untuk.
+                     Kami berkomitmen memberikan produk terbaik dengan layanan profesional.</p>
+                <p> Setiap iPhone yang kami jual telah melalui quality control ketat. 
+                     Kami fokus pada penjualan online untuk efisiensi, menjaga kualitas, 
+                     dan menawarkan harga lebih bersahabat.</p>
                     
                     <div class="quality-badges">
                         <div class="quality-badge">
@@ -1203,11 +1324,7 @@ body {
         <p>&copy; 2025 PRBM.id. All rights reserved. iPhone Second original Trusted Store.</p>
     </footer>
 
-    <div class="floating-buttons">
-    <a href="https://www.tiktok.com/@prbm.id" target="_blank" class="tt"><i class="fab fa-tiktok"></i></a>
-    <a href="https://www.instagram.com/prbm.id" target="_blank" class="ig"><i class="fab fa-instagram"></i></a>
-    <a href="https://wa.me/6289658697851" target="_blank" class="wa"><i class="fab fa-whatsapp"></i></a>
-</div>
+    
 
     <script>
        // === 1. Smooth Scrolling dengan Easing Custom (Hyperliquid-style) ===
@@ -1345,7 +1462,7 @@ body {
             const speed = scrolled * 0.5;
             
             if (parallax) {
-                parallax.style.transform = `translateY(${speed}px)`;
+                parallax.style.transform = `translate3d(0, ${speed}px, 0)`;
             }
         });
 
@@ -1385,6 +1502,29 @@ body {
         if (aboutSection) {
             aboutObserver.observe(aboutSection);
         }
-    </script>
+    
+// Toggle FAB options (mobile only) dengan DOMContentLoaded fix
+document.addEventListener("DOMContentLoaded", function() {
+    const fabMain = document.querySelector('.fab-main');
+    const fabContainer = document.querySelector('.fab-container');
+    if (fabMain) {
+        fabMain.addEventListener('click', function(){
+            fabContainer.classList.toggle('active');
+            this.classList.toggle('open');
+        });
+    }
+});
+</script>
+
+    <!-- Floating Button Expandable with Plus Icon -->
+    <div class="fab-container">
+        <div class="fab-main"><i class="fas fa-plus"></i></div>
+        <div class="fab-options">
+            <a href="https://wa.me/6289658697851" target="_blank" class="wa"><i class="fab fa-whatsapp"></i></a>
+            <a href="https://www.instagram.com/prbm.id" target="_blank" class="ig"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.tiktok.com/@prbm.id" target="_blank" class="tt"><i class="fab fa-tiktok"></i></a>
+        </div>
+    </div>
+
 </body>
 </html>
